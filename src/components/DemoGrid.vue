@@ -21,6 +21,8 @@ export default {
                     });
                 });
             }
+            // first sort array on `name` column in ascending order
+            tData.sort((a, b) => a.name > b.name);
             return tData;
         }
     }
@@ -30,7 +32,9 @@ export default {
 <template>
      <table class="table">
       <thead>
-        <th v-for="c in columns">{{ upperCaseFirstLetter(c) }}</th>
+        <th v-for="c in columns">{{ upperCaseFirstLetter(c) }}
+            <span class="arrow asc"></span>
+        </th>
       </thead>
       <tbody>
         <tr v-for="d in filteredData" :key="d.id">
@@ -59,4 +63,20 @@ td {
 th, td {
   padding: 0.5rem 2rem;
 }
+
+.arrow {
+  display: inline-block;
+  vertical-align: middle;
+  width: 0;
+  height: 0;
+  margin-left: 5px;
+  opacity: 0.66;
+}
+
+.arrow.asc {
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 4px solid #fff;
+}
+
 </style>
