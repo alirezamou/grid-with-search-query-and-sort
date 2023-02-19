@@ -22,7 +22,7 @@ export default {
                 });
             }
             // first sort array on `name` column in ascending order
-            tData.sort((a, b) => a.name > b.name);
+            tData.sort((a, b) => (a.name < b.name));
             return tData;
         }
     }
@@ -32,9 +32,11 @@ export default {
 <template>
      <table class="table">
       <thead>
-        <th v-for="c in columns">{{ upperCaseFirstLetter(c) }}
-            <span class="arrow asc"></span>
-        </th>
+        <tr>
+          <th v-for="c in columns">{{ upperCaseFirstLetter(c) }}
+              <span class="arrow asc"></span>
+          </th>
+        </tr>
       </thead>
       <tbody>
         <tr v-for="d in filteredData" :key="d.id">
