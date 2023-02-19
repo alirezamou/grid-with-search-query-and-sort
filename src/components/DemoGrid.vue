@@ -2,7 +2,11 @@
 export default {
   data() {
     return {
-      sortOrders: { name: 1 }
+      sortOrders: this.columns.reduce((acc, currentVal) => {
+        acc[currentVal] = 1;
+        return acc;
+      }, {}),
+      sortKey: ""
     }
   },
   props: {
@@ -13,6 +17,10 @@ export default {
   methods: {
       upperCaseFirstLetter (str) {
           return str.split(" ").map(item => `${item.charAt(0).toUpperCase()}${item.slice(1)}`).join(" ");
+      },
+      sortBy (key) {
+        this.sortKey = key;
+        this.sortOrders[key] *= -1;
       }
   },
   computed: {
@@ -26,11 +34,10 @@ export default {
                   });
               });
           }
-          // first sort array on `name` column in ascending order
           tData = tData.slice().sort((a, b) => {
-            a = a.name;
-            b = b.name;
-            return (a === b ? 0 : a > b ? 1 : -1) * this.sortOrders.name;
+            a = a[this.sortKey];
+            b = b[this.sortKey];
+            return (a === b ? 0 : a > b ? 1 : -1) * this.sortOrders[this.sortKey];
           });
           return tData;
       }
@@ -42,8 +49,8 @@ export default {
      <table class="table">
       <thead>
         <tr>
-          <th @click="sortOrders.name *= -1" v-for="c in columns">{{ upperCaseFirstLetter(c) }}
-              <span class="arrow" :class="sortOrders.name === 1 ? 'asc' : 'dsc'"></span>
+          <th v-for="c in columns" @click="sortBy(c)" :class="{active : sortKey == c}">{{ upperCaseFirstLetter(c) }}
+              <span class="arrow" :class="sortOrders[c] > 0 ? 'asc' : 'dsc'"></span>
           </th>
         </tr>
       </thead>
@@ -63,8 +70,17 @@ table {
 
 th {
   background-color: #42b983;
-  color: #fff;
+  color: rgba(255, 255, 255, 0.66);
   font-weight: bold;
+  cursor: pointer;
+}
+
+th.active {
+  color: #fff;
+}
+
+th.active .arrow {
+  opacity: 1;
 }
 
 td {
