@@ -12,7 +12,8 @@ export default {
         {id: 1, name: 'bruce lee', power: 9000},
         {id: 1, name: 'jackie chan', power: 7000},
         {id: 1, name: 'jet li', power: 6000},
-      ]
+      ],
+      searchQuery: ""
     }
   }
 }
@@ -22,9 +23,9 @@ export default {
   <div class="container">
     <div class="search-query">
       <label for="">Search</label>
-      <input type="text">
+      <input type="text" v-model="searchQuery">
     </div>
-    <DemoGrid :data="gridData" :columns="gridColumns"/>
+    <DemoGrid :data="gridData" :columns="gridColumns" :filterKey="searchQuery"/>
   </div>
 </template>
 
