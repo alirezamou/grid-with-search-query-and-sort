@@ -1,7 +1,8 @@
 <script>
 export default {
     props: {
-        data: Array
+        data: Array,
+        columns: Array
     },
     methods: {
         upperCaseFirstLetter (str) {
@@ -14,13 +15,11 @@ export default {
 <template>
      <table class="table">
       <thead>
-        <th>Name</th>
-        <th>Power</th>
+        <th v-for="c in columns">{{ upperCaseFirstLetter(c) }}</th>
       </thead>
       <tbody>
-        <tr v-for="person in data" :key="person.id">
-          <td>{{ upperCaseFirstLetter(person.name) }}</td>
-          <td>{{ person.power }}</td>
+        <tr v-for="d in data" :key="d.id">
+          <td v-for="column in columns">{{ typeof d[column] === "string" ? upperCaseFirstLetter(d[column]) : d[column] }}</td>
         </tr>
       </tbody>
     </table>

@@ -6,6 +6,7 @@ export default {
   },
   data() {
     return {
+      gridColumns: ['name', 'power'],
       gridData: [
         {id: 1, name: 'chuck norris', power: Infinity},
         {id: 1, name: 'bruce lee', power: 9000},
@@ -23,7 +24,7 @@ export default {
       <label for="">Search</label>
       <input type="text">
     </div>
-    <DemoGrid :data="gridData"/>
+    <DemoGrid :data="gridData" :columns="gridColumns"/>
   </div>
 </template>
 
