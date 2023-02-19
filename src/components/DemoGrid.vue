@@ -1,3 +1,16 @@
+<script>
+export default {
+    props: {
+        data: Array
+    },
+    methods: {
+        upperCaseFirstLetter (str) {
+            return str.split(" ").map(item => `${item.charAt(0).toUpperCase()}${item.slice(1)}`).join(" ");
+        }
+    }
+}
+</script>
+
 <template>
      <table class="table">
       <thead>
@@ -5,13 +18,9 @@
         <th>Power</th>
       </thead>
       <tbody>
-        <tr>
-          <td>Chuck Norris</td>
-          <td>Infinity</td>
-        </tr>
-        <tr>
-          <td>bruce lee</td>
-          <td>9000</td>
+        <tr v-for="person in data" :key="person.id">
+          <td>{{ upperCaseFirstLetter(person.name) }}</td>
+          <td>{{ person.power }}</td>
         </tr>
       </tbody>
     </table>
