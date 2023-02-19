@@ -46,7 +46,7 @@ export default {
 </script>
 
 <template>
-     <table class="table">
+     <table v-if="filteredData.length !== 0">
       <thead>
         <tr>
           <th v-for="c in columns" @click="sortBy(c)" :class="{active : sortKey == c}">{{ upperCaseFirstLetter(c) }}
@@ -60,6 +60,7 @@ export default {
         </tr>
       </tbody>
     </table>
+    <div v-else>No matches found</div>
 </template>
 
 <style scoped>
